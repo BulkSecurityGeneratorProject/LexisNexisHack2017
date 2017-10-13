@@ -5,9 +5,11 @@
         .module('lexisNexisHack2017App')
         .factory('Principal', Principal);
 
-    Principal.$inject = ['$q', 'Account', 'JhiTrackerService'];
+    //Principal.$inject = ['$q', 'Account', 'JhiTrackerService'];
+    Principal.$inject = ['$q', 'Account'];
 
-    function Principal ($q, Account, JhiTrackerService) {
+    //function Principal ($q, Account, JhiTrackerService) {
+    function Principal ($q, Account) {
         var _identity,
             _authenticated = false;
 
@@ -79,7 +81,7 @@
                 _identity = account.data;
                 _authenticated = true;
                 deferred.resolve(_identity);
-                JhiTrackerService.connect();
+                //JhiTrackerService.connect();
             }
 
             function getAccountCatch () {

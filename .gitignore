@@ -3,6 +3,7 @@
 ######################
 /src/main/webapp/content/css/main.css
 /target/www/**
+/src/main/webapp/bower_components/**
 /src/test/javascript/coverage/
 
 ######################
@@ -140,3 +141,5 @@ Desktop.ini
 # ESLint
 ######################
 .eslintcache
+src/main/resources/config/application-dev.yml
+src/main/resources/config/application-dev.yml

@@ -5,17 +5,21 @@
         .module('lexisNexisHack2017App')
         .controller('JhiTrackerController', JhiTrackerController);
 
-    JhiTrackerController.$inject = ['$cookies', '$http', 'JhiTrackerService'];
+    JhiTrackerController.$inject = ['$cookies', '$http'];
+    //JhiTrackerController.$inject = ['$cookies', '$http', 'JhiTrackerService'];
 
-    function JhiTrackerController ($cookies, $http, JhiTrackerService) {
+    function JhiTrackerController ($cookies, $http) {
+    //function JhiTrackerController ($cookies, $http, JhiTrackerService) {
         // This controller uses a Websocket connection to receive user activities in real-time.
         var vm = this;
 
         vm.activities = [];
 
+        /*
         JhiTrackerService.receive().then(null, null, function(activity) {
             showActivity(activity);
         });
+        */
 
         function showActivity(activity) {
             var existingActivity = false;

@@ -1,3 +1,4 @@
+/*
 var dataCacheName = '"lexisNexisHack2017App-v1';
 var cacheName = '"lexisNexisHack2017App-1';
 var filesToCache = [
@@ -38,3 +39,4 @@ self.addEventListener('fetch', function(e) {
         })
     );
 });
+*/
