@@ -5,9 +5,15 @@
         .module('lexisNexisHack2017App')
         .factory('PushService', PushService);
 
-    PushService.$inject = [];
+    PushService.$inject = ["$http"];
 
-    function PushService() {
+    function PushService($http) {
+
+        var pushToken = null;
+
+        function getToken(){
+            return pushToken;
+        }
 
         function initialize(){
 
@@ -44,6 +50,7 @@
 
                 FCM.getToken().then(function(token) {
                     console.log("Initialized with token " + token);
+                    pushToken = token;
                 }).catch(function(tokenError) {
                     throw tokenError;
                 });
@@ -65,9 +72,31 @@
                 });
         }
 
+        function scheduleNotification(notification){
+
+            // additional required properties of notification
+            notification.data = null;
+            notification.notificationId = null;
+            notification.requireInteraction = false;
+            notification.sent = false;
+            notification.silent = false;
+            notification.tag = null;
+            notification.timeout = null;
+            notification.vibrate = null;
+
+            console.log("notification", notification);
+
+            return $http.post('/api/notifications/', notification).then(function(response){
+                return response;
+            });
+
+        }
+
         return {
             initialize: initialize,
-            notify: notify
+            notify: notify,
+            scheduleNotification: scheduleNotification,
+            getToken: getToken
         };
     }
 })();

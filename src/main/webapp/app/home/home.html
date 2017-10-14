@@ -167,10 +167,22 @@ Push.FCM().then(function(FCM){
                     <label for="icon">Body</label>
                     <textarea class="form-control" id="body" name="body" ng-model="vm.message.body" placeholder="Enter the content for your notification" ></textarea>
                 </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="link">Link</label>
+                        <input type="url" class="form-control" id="link" name="link" ng-model="vm.message.link" placeholder="Enter the link for your notification" />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="sendTime">Link</label>
+                        <input type="datetime-local" class="form-control" id="sendTime" name="sendTime" ng-model="vm.message.sendTime" placeholder="When should the notification be sent" />
+                    </div>
+                </div>
+
             </fieldset>
 
-            <button class="btn btn-primary" ng-click="vm.testPush()">Test Push</button>
-            <button class="btn btn-default" ng-click="vm.resetDefaults()">Reset Defaults</button>
+            <button class="btn btn-primary" ng-click="vm.localPush()">Local Push</button>
+            <button class="btn btn-success" ng-click="vm.schedulePush()">Schedule Push</button>
+            <button class="btn btn-default pull-right" ng-click="vm.resetDefaults()">Reset Defaults</button>
         </div>
     </div>
 </div>
