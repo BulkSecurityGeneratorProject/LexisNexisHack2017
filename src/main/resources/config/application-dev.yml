@@ -27,14 +27,21 @@ spring:
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:sqlserver://localhost:1433;database=LexisNexisHack2017
-        username: SA
-        password: yourStrong(!)Password
+        username: <Your UserName>
+        password: <Your Password>
         hikari:
             data-source-properties:
                 cachePrepStmts: true
                 prepStmtCacheSize: 250
                 prepStmtCacheSqlLimit: 2048
                 useServerPrepStmts: true
+    datasources:
+        nonHibernate:
+            driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+            url: jdbc:sqlserver://localhost:1433;database=LexisNexisHack2017
+            name: nonHibernate
+            username: sa
+            password: Yeleswsx@sa
     jpa:
         database-platform: org.hibernate.dialect.SQLServer2012Dialect
         database: SQL_SERVER
@@ -54,6 +61,10 @@ spring:
         cache-seconds: 1
     thymeleaf:
         cache: false
+    logging:
+      level:
+        org.springframework.web: WARN
+        guru.springframework.controllers: WARN
 
 liquibase:
     contexts: dev

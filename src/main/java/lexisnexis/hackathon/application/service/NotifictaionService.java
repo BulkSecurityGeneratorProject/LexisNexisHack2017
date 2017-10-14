@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class NotifictaionService {
 
-    private final Logger log = LoggerFactory.getLogger(UserService.class);
+    /*private final Logger log = LoggerFactory.getLogger(UserService.class);
 
     private final UserNotificationRepository userNotificationRepository;
 
@@ -34,5 +34,5 @@ public class NotifictaionService {
         notification.setSilent(notificationDTO.getSilent());
         userNotificationRepository.save(notification);
         return notification;
-    }
+    }*/
 }

@@ -21,7 +21,7 @@ import java.net.URISyntaxException;
 @RequestMapping("/api")
 public class NotificationController {
 
-    private final Logger log = LoggerFactory.getLogger(lexisnexis.hackathon.application.web.rest.UserResource.class);
+    /*private final Logger log = LoggerFactory.getLogger(lexisnexis.hackathon.application.web.rest.UserResource.class);
 
     private final NotifictaionService notifictaionService;
 
@@ -36,7 +36,7 @@ public class NotificationController {
         return ResponseEntity.created(new URI("/api/createNotification/" + userNotification.getNotificationId()))
             .headers(HeaderUtil.createAlert( "notification is created with identifier " + userNotification.getNotificationId(), String.valueOf(userNotification.getNotificationId())))
             .body(notification);
-    }
+    }*/
 }
 
 

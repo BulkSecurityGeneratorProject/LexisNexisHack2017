@@ -36,6 +36,13 @@
             */
 
             var config = {
+                apiKey: "AIzaSyCpwn-7tMTkiedODQR2RLVVGLSbFWwVbLY",
+                authDomain: "pushnotifications-4a87b.firebaseapp.com",
+                databaseURL: "https://pushnotifications-4a87b.firebaseio.com",
+                projectId: "pushnotifications-4a87b",
+                storageBucket: "pushnotifications-4a87b.appspot.com",
+                messagingSenderId: "140755737702",
+
                 onMessage: function(message){
                     console.log("message", message);
 

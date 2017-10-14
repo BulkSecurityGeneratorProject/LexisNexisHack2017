@@ -2,67 +2,29 @@ package lexisnexis.hackathon.application.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Date;
 
-@Entity
-@Table(name = "Notification")
-public class Notification {
-    private static final long serialVersionUID = 1L;
+/**
+ * @author YELESWSX
+ * @created 10/13/2017
+ */
+public class NotificationModel implements Serializable{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
     private long notificationId;
-
-    @Size(max = 256)
-    @Column(name = "title", length = 256)
     private String title;
-
-    @Size(max = 1024)
-    @Column(name = "body", length = 1024)
     private String body;
-
-    @Size(max = 128)
-    @Column(name = "click_action", length = 128)
     private String clickAction;
-
-    @Size(max = 1024)
-    @Column(name = "data", length = 1024)
     private byte[] data;
-
-    @Size(max = 256)
-    @Column(name = "icon", length = 256)
     private String icon;
-
-    @Size(max = 256)
-    @Column(name = "link", length = 256)
     private String link;
-
-    @Column(name = "require_interaction")
     private Boolean requireInteraction;
-
-    @Size(max = 256)
-    @Column(name = "tag", length = 256)
     private String tag;
-
-    @Column(name = "timeout")
     private int timeout;
-
-    @Size(max = 256)
-    @Column(name = "vibrate", length = 256)
     private String vibrate;
-
-    @Column(name = "silent")
     private Boolean silent;
-
-    @Column(name = "send_time")
     private java.util.Date sendTime;
-
-    @Column(name = "is_sent")
     private Boolean isSent;
-
-    @Size(max = 256)
-    @Column(name = "sendTo", length = 256)
     private String sendTo;
 
     public long getNotificationId() {
@@ -73,12 +35,28 @@ public class Notification {
         this.notificationId = notificationId;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getBody() {
         return body;
     }
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public String getClickAction() {
+        return clickAction;
+    }
+
+    public void setClickAction(String clickAction) {
+        this.clickAction = clickAction;
     }
 
     public byte[] getData() {
@@ -167,21 +145,5 @@ public class Notification {
 
     public void setSendTo(String sendTo) {
         this.sendTo = sendTo;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getClickAction() {
-        return clickAction;
-    }
-
-    public void setClickAction(String clickAction) {
-        this.clickAction = clickAction;
     }
 }
