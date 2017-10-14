@@ -5,9 +5,9 @@
         .module('lexisNexisHack2017App')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', 'Principal', 'LoginService', 'PushService', '$state', '$timeout'];
+    HomeController.$inject = ['$scope', 'Principal', 'LoginService', 'PushService', '$state'];
 
-    function HomeController ($scope, Principal, LoginService, PushService, $state, $timeout) {
+    function HomeController ($scope, Principal, LoginService, PushService, $state) {
         var vm = this;
 
         PushService.initialize();
@@ -33,13 +33,29 @@
             $state.go('register');
         }
 
-        vm.testPush = function(){
-            $timeout(function(){
-                Push.create('Hello World!',
-                {
-                    icon: '/content/images/ln_kb.png'
-                });
-            }, 5000);
+        vm.resetDefaults = function(){
+            vm.message = {
+                title: 'Test Push',
+                icon:  'https://pbs.twimg.com/profile_images/471304690026545152/MOL2TpT7_400x400.jpeg',
+                body:  'Here is some important information'
+            };
         };
+
+        vm.resetDefaults();
+
+        vm.testPush = function() {
+            console.log("vm.message", vm.message);
+
+            PushService.notify({
+                title: vm.message.title,
+                icon: vm.message.icon,
+                body: vm.message.body
+            });
+        };
+
+        // highlights code on the page
+        $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
     }
 })();

@@ -1,15 +1,147 @@
 <div ng-cloak>
     <div class="row">
         <div class="col-md-4">
-            <span class="hipster img-responsive img-rounded"></span>
+            <span class="hipster img-responsive img-rounded" style="position: fixed;">
+                <div class="list-group" style="margin-top: 350px;">
+                  <a href="mailto:joshua.weil@lexisnexis.com;sandeep.yeleswarpau@lexisnexis.com;raviprakash.jadhav@lexisnexis.com" class="list-group-item active" style="background: #917bb4; border-color: #574482;">
+                    Code Gurus (Purple Dragons)
+                  </a>
+                  <a href="mailto:joshua.weil@lexisnexis.com" class="list-group-item">Joshua Weil</a>
+                  <a href="mailto:sandeep.yeleswarpau@lexisnexis.com" class="list-group-item">Sandeep Yeleswarapu</a>
+                  <a href="mailto:raviprakash.jadhav@lexisnexis.com" class="list-group-item">Raviprakash Jadhav</a>
+                </div>
+            </span>
         </div>
         <div class="col-md-8">
-            <h1>Welcome, LexisNexis Hipster!</h1>
-            <p class="lead">This is your homepage</p>
+            <h1>LexisNexis FirePush!</h1>
+            <p class="lead">Built By: Purple Dragons</p>
 
             <div ng-switch="vm.isAuthenticated()">
+                <!--
                 <div class="alert alert-success" ng-switch-when="true">
                     You are logged in as user "{{vm.account.login}}".
+                </div>
+                -->
+                <div class="well">
+                    <div class="about">
+                        <label>About this project:</label><br/>
+                        <p>
+                            The concept of this project was to build an easy way to introduce Push Notifications to Web and
+                            Desktop Applications in the LexisNexis Portfolio
+                        </p>
+                    </div>
+                    <div class="how-it-works">
+                        <br/>
+                        <label>How it Works:</label>
+                        <ol>
+                            <li>Applications Call a Rest API to schedule a notification</li>
+                            <li>The API stores the notification in a SQL queue</li>
+                            <li>A Service checks the queue every minute to check for scheduled notifications</li>
+                            <li>The service makes a call to Firebase to broadcast a message</li>
+                            <li>The notification displays in the users desktop or mobile device</li>
+                            <li>The user can Click the notification to go to a page or perform actions</li>
+                        </ol>
+                    </div>
+                    <div class="technology">
+                        <br/>
+                        <label>Technology Used:</label>
+                        <ul>
+                            <li>jHipster (Java, Spring Boot, MSSQL)</li>
+                            <li>Firebase Cloud Messaging (FCM)</li>
+                            <li>Push.js (Open Source Cross Browser Push Support)</li>
+                            <li>Push-fcm-plugin (Web Socket Communication)</li>
+                            <li>Angular.js (Front End App for Demo)</li>
+                            <li>Swagger (Documentation for Public RestAPI)</li>
+                        </ul>
+                    </div>
+
+                    <div class="business-value">
+                        <br/>
+                        <label>Business Value:</label>
+                        <p>
+                            We wanted to come up with idea that could bring new functionality and customer value
+                            to applications across the portfolio. This is why we built LexisNexis FirePush as a stand alone
+                            micro-service. The value grows exponentially with the number of our apps that use the service
+                            to manage notifications.
+                        </p>
+                        <p>
+                            Today our applications notify our users with emails, or depend on users logging into the system to
+                            check whats new. This approach allows us to notify users on demmand or at scheduled times even when
+                            they are not in the application.
+                        </p>
+                    </div>
+
+                    <div class="setup">
+                        <br/>
+                        <label>Getting Setup:</label>
+                        <ol>
+                            <li>Use Bower to install push.js <code>bower install push.js --save</code></li>
+                            <li>Use Bower to install push-fcm-plugin <code>bower install push-fcm-plugin --save</code></li>
+                            <li>On your web application Configure Push and FCM using the code below <small>Firebase configs</small>
+                                <pre><code class="javascript">
+var config = {
+    apiKey: "&lt;YOUR_API_KEY&gt;",
+    authDomain: "&lt;YOUR_AUTH_DOMAIN&gt;",
+    databaseURL: "&lt;YOUR_DATABASE_URL&gt;",
+    projectId: "&lt;YOUR_PROJECT_ID&gt;",
+    storageBucket: "&lt;YOUR_STORAGE_BUCKET&gt;",
+    messagingSenderId: "&lt;YOUR_MESSAGE_SENDER_ID&gt;",
+    onMessage: function(message){
+        Push.create(message.notification.title,
+        {
+            icon: message.notification.icon,
+            body: message.notification.body,
+            onClick: function(){
+                window.open(message.notification.click_action);
+            }
+        });
+    },
+    sendTokenToServer: function(token){
+        // Token tied to the user that you need to send to the Rest API
+        // NOTE: You may want to associate the token with the user profile
+        console.log("sendTokenToServer", token);
+    }
+};
+
+// Set the configurations
+Push.config({ FCM: config });
+
+// Initialize Firebase Cloud Messaging
+Push.FCM().then(function(FCM){
+
+    FCM.getToken().then(function(token) {
+        console.log("Initialized with token " + token);
+    }).catch(function(tokenError) {
+        throw tokenError;
+    });
+
+}).catch(function(initError) {
+    console.log("initError", initError);
+    throw initError;
+});
+
+                                </code></pre>
+                            </li>
+                            <li>Add a manifest.json file (gsm_sender_id is required for some browsers to use push notifications)
+                            <pre><code class="javascript">
+{ "gcm_sender_id": "103953800507" // NOTE: same for all Firebase Apps DON'T CHANGE }
+                            </code></pre>
+                            </li>
+                            <li>Include the manifest.json file
+                                <pre><code class="html">
+&lt;link rel="manifest" href="/manifest.json"&gt;
+                            </code></pre>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <div class="api">
+                        <br/>
+                        <label>Calling the Rest API:</label>
+                        <ol>
+                            <li>TODO</li>
+                        </ol>
+                    </div>
                 </div>
 
                 <div class="alert alert-warning" ng-switch-when="false">
@@ -21,23 +153,24 @@
                 </div>
             </div>
 
-            <p>
-                If you have any question on JHipster:
-            </p>
-
-            <ul>
-                <li><a href="http://www.jhipster.tech/" target="_blank" rel="noopener">JHipster homepage</a></li>
-                <li><a href="http://stackoverflow.com/tags/jhipster/info" target="_blank" rel="noopener">JHipster on Stack Overflow</a></li>
-                <li><a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" rel="noopener">JHipster bug tracker</a></li>
-                <li><a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" rel="noopener">JHipster public chat room</a></li>
-                <li><a href="https://twitter.com/java_hipster" target="_blank" rel="noopener">follow @java_hipster on Twitter</a></li>
-            </ul>
-
-            <p>
-             <span>If you like JHipster, don't forget to give us a star on </span>&nbsp;<a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener">GitHub</a>!
-            </p>
+            <fieldset>
+                <legend>Push Notification Demo</legend>
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" ng-model="vm.message.title" placeholder="Enter the title for your notification" />
+                </div>
+                <div class="form-group">
+                    <label for="icon">Icon</label>
+                    <input type="text" class="form-control" id="icon" name="icon" ng-model="vm.message.icon" placeholder="Enter the path for your icon" />
+                </div>
+                <div class="form-group">
+                    <label for="icon">Body</label>
+                    <textarea class="form-control" id="body" name="body" ng-model="vm.message.body" placeholder="Enter the content for your notification" ></textarea>
+                </div>
+            </fieldset>
 
             <button class="btn btn-primary" ng-click="vm.testPush()">Test Push</button>
+            <button class="btn btn-default" ng-click="vm.resetDefaults()">Reset Defaults</button>
         </div>
     </div>
 </div>

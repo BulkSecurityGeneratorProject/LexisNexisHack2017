@@ -1,6 +1,8 @@
 package lexisnexis.hackathon.application.repository;
 
 import lexisnexis.hackathon.application.domain.NotificationModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.sql.DataSource;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -18,6 +21,8 @@ import java.util.List;
  */
 @Repository
 public class NotificationDAO {
+    private final Logger log = LoggerFactory.getLogger(lexisnexis.hackathon.application.web.rest.UserResource.class);
+
     @Inject
     @Qualifier("dataSourceNonHibernate")
     private DataSource dataSourceNonHibernate;
@@ -35,7 +40,7 @@ public class NotificationDAO {
             "SELECT * " +
                 "FROM dbo.notification " +
                 "WHERE is_sent=0 " +
-                "AND send_time > DATEADD(mi, -5, CURRENT_TIMESTAMP)",
+                "AND send_time > DATEADD(HOUR, -3, CURRENT_TIMESTAMP)",
             notificationMapper
         );
     }
@@ -69,15 +74,31 @@ public class NotificationDAO {
     }
 
     public void createNotification(NotificationModel notificationModel){
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue("title", notificationModel.getTitle())
+
+        /*
+        MapSqlParameterSource parameters = new MapSqlParameterSource("title", notificationModel.getTitle());
+        parameters
+            //.addValue("title", notificationModel.getTitle())
             .addValue("body", notificationModel.getBody())
             .addValue("click_action", notificationModel.getClickAction())
             .addValue("icon", notificationModel.getIcon())
             .addValue("link", notificationModel.getLink())
             .addValue("send_time", notificationModel.getSendTime())
             .addValue("send_to", notificationModel.getSendTo());
+        */
 
-        jdbcTemplate.update("notification_insert :title, :body, :click_action, :icon, :link, :send_time, :send_to", parameters);
+        String sendTimeString = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(notificationModel.getSendTime());
+
+        String query = "notification_insert '" + notificationModel.getTitle() + "', " +
+            "'" + notificationModel.getBody() + "', " +
+            "'" + notificationModel.getClickAction() + "', " +
+            "'" + notificationModel.getIcon() + "', " +
+            "'" + notificationModel.getLink() + "', " +
+            "'" + sendTimeString + "', " +
+            "'" + notificationModel.getSendTo() + "'";
+
+        log.info("query: " + query);
+
+        jdbcTemplate.update(query);
     }
 }
